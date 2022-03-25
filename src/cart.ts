@@ -1,4 +1,4 @@
-import {CartItem} from './product';
+import {CartItem} from './cartItem';
 
 export class Cart {
     private id: number;
@@ -27,5 +27,4 @@ export class Cart {
     private findCartItem(name: string) {
         return this.cartItems.filter(item => item['product']['productName'] == name)[0];
     }
-
 }

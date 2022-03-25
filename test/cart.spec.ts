@@ -1,5 +1,6 @@
-import {Product, CartItem} from '../src/product';
+import {Product} from '../src/product';
 import {Cart} from '../src/cart';
+import {CartItem} from "../src/cartItem";
 
 describe('Add product to cart', () => {
     let cart: Cart;
