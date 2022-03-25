@@ -1,10 +1,12 @@
-import { CartItem, Product } from './product';
+import { CartItem } from './product';
 
 export class Cart {
+    private id: number;
     private cartItems: Array<CartItem>;
     private deletedItems: Array<CartItem>;
 
-     constructor(){
+     constructor(id: number){
+         this.id = id;
          this.cartItems = [];
          this.deletedItems = [];
      }

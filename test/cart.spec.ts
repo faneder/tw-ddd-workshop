@@ -4,7 +4,7 @@ import {Cart} from '../src/cart';
 describe('Add product to cart', () => {
     let cart: Cart;
     beforeEach(()=> {
-        cart = new Cart();
+        cart = new Cart(1);
     });
 
     it('should add a IpadPro to cart', async () => {
@@ -72,4 +72,25 @@ describe('Add product to cart', () => {
         expect(cart['deletedItems']).toStrictEqual([items1]);
     });
 
+    it('should return false when two carts are different', async () => {
+        const ipads = new Product("IPad Pro");
+        const items1 = new CartItem(ipads, 2);
+        cart.add(items1);
+
+        const cart2 = new Cart(2);
+        cart2.add(items1)
+
+        expect(cart).not.toStrictEqual(cart2);
+    });
+
+    it('should return true when two carts are the same', async () => {
+        const ipads = new Product("IPad Pro");
+        const items1 = new CartItem(ipads, 2);
+        cart.add(items1);
+
+        const cart2 = new Cart(1);
+        cart2.add(items1)
+
+        expect(cart).toStrictEqual(cart2);
+    });
 });
