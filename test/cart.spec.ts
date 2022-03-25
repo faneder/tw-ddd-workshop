@@ -3,7 +3,7 @@ import {Cart} from '../src/cart';
 
 describe('Add product to cart', () => {
     let cart: Cart;
-    beforeEach(()=> {
+    beforeEach(() => {
         cart = new Cart(1);
     });
 
