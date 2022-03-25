@@ -4,5 +4,8 @@ This workshop is the hands-on training sessions to practise DDD terminology, arc
 # install
 ``yarn install``
 
+# build
+``yarn build``
+
 # test
 ``yarn test``
