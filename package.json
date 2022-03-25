@@ -5,7 +5,7 @@
   "main": "./dist/index.js",
   "typings": "./dist/index.d.ts",
   "scripts": {
-    "test": "jest --config ./test/jest.config.js --coverage --silent -w=1 test",
+    "test": "jest --config ./test/jest.config.js --silent -w=1 test",
     "build": "npm run clean && tsc && copyfiles -u 1 src/**/*.json dist",
     "clean": "rimraf dist",
     "console": "ts-node --project tsconfig-console.json"
