@@ -4,4 +4,8 @@ export class Price {
     constructor(price) {
         this.amount = price;
     }
+    
+    getAmount() {
+        return this.amount;
+    }
 } 

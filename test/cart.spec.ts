@@ -102,6 +102,6 @@ describe('Add product to cart', () => {
         const items1 = new CartItem(ipads, 2);
         cart.add(items1);
 
-        expect(ipads['price']['amount']).toStrictEqual(amount);
+        expect(ipads.getPrice().getAmount()).toStrictEqual(amount);
     });
 });

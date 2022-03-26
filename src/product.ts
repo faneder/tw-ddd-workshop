@@ -9,4 +9,8 @@ export class Product {
         this.productName = name;
         this.price = price;
     }
+    
+    getPrice() {
+        return this.price;
+    }
 }
