@@ -1,7 +1,10 @@
-import {Product} from '../src/product';
-import {Cart} from '../src/cart';
-import {CartItem} from "../src/cartItem";
-import {Price} from "../src/Price";
+import {Product} from '../../../src/shopping/domain/product';
+import {Cart} from '../../../src/shopping/domain/cart';
+import {CartItem} from "../../../src/shopping/domain/cartItem";
+import {Price} from "../../../src/shopping/domain/price";
+import {Currencies} from "ts-money";
+import {Order} from "../../../src/shopping/domain/order";
+
 
 describe('Add product to cart', () => {
     let cart: Cart;
@@ -10,7 +13,7 @@ describe('Add product to cart', () => {
     });
 
     it('should add a IpadPro to cart', async () => {
-        const iPadPro = new Product("IPad Pro", new Price(888));
+        const iPadPro = new Product("IPad Pro", new Price(100, Currencies.USD), 10);
         const item = new CartItem(iPadPro, 1);
 
         cart.add(item);
@@ -19,7 +22,7 @@ describe('Add product to cart', () => {
     });
 
     it('should add a Hero Ink Pen to cart', async () => {
-        const pen = new Product("Hero Ink Pen", new Price(888));
+        const pen = new Product("Hero Ink Pen", new Price(100, Currencies.USD), 10);
         const item = new CartItem(pen, 1);
 
         cart.add(item);
@@ -28,7 +31,7 @@ describe('Add product to cart', () => {
     });
 
     it('should add 2 GM Cricket bats to cart', async () => {
-        const bat = new Product("GM Cricket bat", new Price(888));
+        const bat = new Product("GM Cricket bat", new Price(100, Currencies.USD), 10);
         const items = new CartItem(bat, 2);
 
         cart.add(items);
@@ -37,7 +40,7 @@ describe('Add product to cart', () => {
     });
 
     it('should remove all IPad Pro products from cart', async () => {
-        const ipads = new Product("IPad Pro", new Price(888));
+        const ipads = new Product("IPad Pro", new Price(100, Currencies.USD), 10);
         const items = new CartItem(ipads, 2);
         cart.add(items);
 
@@ -47,10 +50,10 @@ describe('Add product to cart', () => {
     });
 
     it('should remove just IPad Pro products from cart', async () => {
-        const ipads = new Product("IPad Pro", new Price(888));
+        const ipads = new Product("IPad Pro", new Price(100, Currencies.USD), 10);
         const items1 = new CartItem(ipads, 2);
 
-        const bat = new Product("GM Cricket bat", new Price(888));
+        const bat = new Product("GM Cricket bat", new Price(100, Currencies.USD), 10);
         const items2 = new CartItem(bat, 2);
         cart.add(items1);
         cart.add(items2);
@@ -61,10 +64,10 @@ describe('Add product to cart', () => {
     });
 
     it('should remove just IPad Pro products from cart and be able to view the removed items', async () => {
-        const ipads = new Product("IPad Pro", new Price(888));
+        const ipads = new Product("IPad Pro", new Price(100, Currencies.USD), 10);
         const items1 = new CartItem(ipads, 2);
 
-        const bat = new Product("GM Cricket bat", new Price(888));
+        const bat = new Product("GM Cricket bat", new Price(100, Currencies.USD), 10);
         const items2 = new CartItem(bat, 2);
         cart.add(items1);
         cart.add(items2);
@@ -75,7 +78,7 @@ describe('Add product to cart', () => {
     });
 
     it('should return false when two carts are different', async () => {
-        const ipads = new Product("IPad Pro", new Price(888));
+        const ipads = new Product("IPad Pro", new Price(100, Currencies.USD), 10);
         const items1 = new CartItem(ipads, 2);
         cart.add(items1);
 
@@ -86,7 +89,7 @@ describe('Add product to cart', () => {
     });
 
     it('should return true when two carts are the same', async () => {
-        const ipads = new Product("IPad Pro", new Price(888));
+        const ipads = new Product("IPad Pro", new Price(100, Currencies.USD), 10);
         const items1 = new CartItem(ipads, 2);
         cart.add(items1);
 
@@ -97,11 +100,19 @@ describe('Add product to cart', () => {
     });
 
     it('should add price to product', async () => {
-        const amount = 888;
-        const ipads = new Product("IPad Pro", new Price(amount));
+        const amount = 1000;
+        const currency = Currencies.USD;
+        const ipads = new Product("IPad Pro", new Price(amount, currency), 10);
+        expect(ipads['price']['amount']).toStrictEqual(amount);
+        expect(ipads['price']['currency']).toStrictEqual(currency);
+    });
+
+    it('should checkout the cart and order is created', async () => {
+        const ipads = new Product("IPad Pro", new Price(100, Currencies.USD), 10);
         const items1 = new CartItem(ipads, 2);
         cart.add(items1);
-
-        expect(ipads.getPrice().getAmount()).toStrictEqual(amount);
+        cart.checkOut();
+        expect(cart['isCheckOut']).toStrictEqual(true);
     });
+
 });

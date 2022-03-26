@@ -12,6 +12,8 @@
   },
   "author": "No one",
   "dependencies": {
+    "copyfiles": "^2.4.1",
+    "ts-money": "^0.4.7"
   },
   "devDependencies": {
     "@types/jest": "^27.0.1",
